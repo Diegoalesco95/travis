@@ -1,7 +1,7 @@
 language: node_js
 
 git:
-	depth: 3
+  depth: 3
 
 branches:
   except:
@@ -11,37 +11,37 @@ branches:
 branches:
   only:
   - master
-	- stable
+  - stable
 
 before_install:
-	- python
+  - python
 
 install:
-	- yarn install
+  - yarn install
 
 script:
-	- yarn deploy
-	- yarn test
+  - yarn deploy
+  - yarn test
 
 before_script:
-	- yarn test
+  - yarn test
 
 after_script:
-	- yarn clean
+  - yarn clean
 
 cache:
-	directories:
-		- node_modules
+  directories:
+    - node_modules
 
 jobs:
-	include:
-		- stage: test
-			script: yarn test
-			script: yarn eslint
-		- stage: deploy
-			script: yarn deploy
+  include:
+    - stage: test
+      script: yarn test
+      script: yarn eslint
+    - stage: deploy
+      script: yarn deploy
 
 deploy:
-	provider: heroku
-	on
-		repo: Diegoalesco95/platzi-store
+  provider: heroku
+  on
+    repo: Diegoalesco95/platzi-store

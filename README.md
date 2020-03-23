@@ -50,8 +50,7 @@ Instalar un segundo lenguaje de programación:
 language: python
 
 before_install:
-- rvm install 2.1.5
-
+  - rvm install 2.1.5
 ```
 
 ```yaml
@@ -62,7 +61,7 @@ install:
 
 Determinar una serie de scripts a seguir:
 
-````yaml
+```yaml
 script:
   - yarn deploy
   - yarn test
@@ -72,8 +71,7 @@ before_script:
 
 after_script:
   - yarn clean
-
-````
+```
 
 Determinar el cache de la aplicación:
 
@@ -87,20 +85,53 @@ Construir una matriz se puede realizar de la siguiente forma:
 
 ```yaml
 jobs:
-	include:
-		- stage: test
-			script: yarn test
-			script: yarn eslint
-		- stage: deploy
-			script: yarn deploy
+  include:
+    - stage: test
+      script: yarn test
+      script: yarn eslint
+    - stage: deploy
+      script: yarn deploy
 ```
 
 Para configurar el deploy:
 
 ```yaml
 deploy:
-	provider: heroku
-	on
-		repo: Diegoalesco95/platzi-store
+  provider: heroku
+  on
+    repo: Diegoalesco95/platzi-store
 ```
 
+Configuración de `.travis.yml` en platzi-store
+
+```yml
+language: node_js
+
+cache:
+  directories:
+    - node_modules
+    - ~/.npm
+
+node_js: # Determinar la versión de node
+  -'12'
+
+git:
+  depth:3
+
+script:
+  # la configuracion de travis tiene yarn
+  - yarn build
+
+deploy: #configuración de deploy
+  provider: pages # github pages
+  skip-clean:true
+  keep-history:true
+  github-token: $GITHUB_TOKEN
+  local-dir: dist/
+  target-branch: gh-pages
+  commit_message:"Deploy del proyecto"
+  on:
+    branch: master
+
+# por defecto yarn hace yarn install
+```
