@@ -1,0 +1,35 @@
+language: node_js
+
+git:
+	depth: 3
+
+branches:
+  except:
+  - legacy
+  - experimental
+
+branches:
+  only:
+  - master
+	- stable
+
+before_install:
+	- python
+
+install:
+	- yarn install
+
+script:
+	- yarn deploy
+	- yarn test
+
+before_script:
+	- yarn test
+
+after_script:
+	- yarn clean
+
+cache:
+	directories:
+		- node_modules
+
