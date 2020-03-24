@@ -139,8 +139,34 @@ deploy: #configuración de deploy
 ## Test & Deploy de Platzi Store
 
 1. Para continuar con el deploy del proyecto, se debe ir a [travis-ci](https://travis-ci.org/account/repositories) y buscar nuestro proyecto en la lista, activarlo y acceder a las configuraciones del mismo para establecer las variables de entorno (en caso de usarlas).
-2. Para generar un token en GitHub se debe seguir la ruta settings / Developer settings / Personal access tokens /  Generate new token.
+2. Para generar un token en GitHub se debe seguir la ruta settings / Developer settings / Personal access tokens / Generate new token.
 3. Copiar el token generado.
 4. Volver a la página de configuración del proyecto en Travis.
 5. Ingresar los valores en los campos NAME y VALUE para crear la variable de entorno.
 6. Finalmente acceder a las opciones del proyecto en Travis y hacer click en "trigger build" en donde se empezará a realizar deploy del proyecto de GitHub, generando la rama gh-pages y posteriormente si todo esta correcto, nuestro proyecto estará listo para su visualización.
+
+## Buenas prácticas de seguridad
+
+Buenas practicas de seguridad: En este curso utilizamos información sensible que deberíamos ocultar. Para eso Travis-cli nos ofrece el siguiente comando:
+
+```shell
+travis encrypt tu_clave
+```
+
+Para encriptar la información sensible y que solo Travis pueda entender.
+
+Luego de ejecutar este comando, Travis genera lo siguiente
+
+```yaml
+secure:"..."
+```
+
+Luego se integra de la siguiente forma:
+
+```yaml
+# ejemplo con api key
+api_key:
+	secure:"..."
+```
+
+Asegurando las claves y/o información sensible.
